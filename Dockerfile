@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install required packages
+# Install system packages
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libzip-dev libonig-dev \
     libpng-dev sqlite3 libsqlite3-dev \
@@ -12,22 +12,22 @@ RUN a2enmod rewrite
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working dir
+# Set working directory
 WORKDIR /var/www/html
 
 # Copy project files
 COPY . .
 
-# Install PHP deps
+# Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Permissions
+# Laravel storage/cache permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Apache config to point to /public
+# Change Apache root to Laravel's public folder
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Expose port
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+# Laravel startup: config cache, migrate, then start apache
+ENTRYPOINT ["sh", "-c", "php artisan config:cache && php artisan migrate --force && apache2-foreground"]
