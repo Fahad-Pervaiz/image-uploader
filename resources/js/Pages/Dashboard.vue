@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import ImageGallery from '../components/ImageGallery.vue';
+import ImageGallery from '../Components/ImageGallery.vue';
 </script>
 
 <template>
