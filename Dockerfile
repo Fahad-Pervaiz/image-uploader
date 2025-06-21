@@ -22,7 +22,9 @@ COPY . .
 RUN composer install --optimize-autoloader --no-dev
 
 # Laravel storage/cache permissions
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Permissions for storage, cache, and database
+RUN chown -R www-data:www-data storage bootstrap/cache database \
+ && chmod -R 775 storage bootstrap/cache database
 
 # Change Apache root to Laravel's public folder
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
