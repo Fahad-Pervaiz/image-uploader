@@ -124,6 +124,31 @@ let serverMessage = {};
 //   labelFileProcessingError: () => serverMessage.error,
 // });
 
+//   try {
+//     const response = await axios.get('/csrf-token');
+//     const newToken = response.data.token;
+
+//     // Update FilePond server headers with new token
+//     setOptions({
+//       server: {
+//         process: {
+//           url: '/upload',
+//           method: 'POST',
+//           headers: {
+//             'X-CSRF-TOKEN': newToken,
+//           },
+//           onError: (response) => {
+//             serverMessage = JSON.parse(response);
+//           },
+//         },
+//       },
+//     });
+
+//     console.log('✅ FilePond CSRF token refreshed');
+//   } catch (e) {
+//     console.error('❌ Failed to refresh CSRF token for FilePond', e);
+//   }
+(async () => {
   try {
     const response = await axios.get('/csrf-token');
     const newToken = response.data.token;
@@ -148,6 +173,7 @@ let serverMessage = {};
   } catch (e) {
     console.error('❌ Failed to refresh CSRF token for FilePond', e);
   }
+})();
 
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
