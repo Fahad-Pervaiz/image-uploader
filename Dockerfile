@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install system dependencies
+# Install system packages
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libzip-dev libonig-dev \
     libpng-dev sqlite3 libsqlite3-dev \
@@ -13,7 +13,7 @@ RUN a2enmod rewrite
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install Node.js 18 (for Vite)
+# Install Node.js (for Vite)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs
 
@@ -24,23 +24,20 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader --no-dev
 
-# Install Node dependencies and build assets
+# Install Node dependencies & build assets
 RUN npm install && npm run build
 
-# Set permissions
+# Laravel storage/cache permissions
+# Permissions for storage, cache, and database
 RUN chown -R www-data:www-data storage bootstrap/cache database \
  && chmod -R 775 storage bootstrap/cache database
 
-# Fix Apache root
+# Change Apache root to Laravel's public folder
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Expose port
 EXPOSE 80
 
-# Create the SQLite file if it doesn't exist
-RUN mkdir -p database && touch database/database.sqlite && chmod -R 775 database
-
-# Laravel entrypoint
+# Laravel startup: config cache, migrate, then start apache
 ENTRYPOINT ["sh", "-c", "php artisan config:cache && php artisan migrate --force && apache2-foreground"]
