@@ -4,6 +4,7 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libzip-dev libonig-dev \
     libpng-dev sqlite3 libsqlite3-dev \
+    gnupg2 ca-certificates lsb-release \
     && docker-php-ext-install pdo pdo_sqlite zip gd
 
 # Enable Apache mod_rewrite
@@ -11,6 +12,10 @@ RUN a2enmod rewrite
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install Node.js (for Vite)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
 
 # Set working directory
 WORKDIR /var/www/html
@@ -20,6 +25,9 @@ COPY . .
 
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
+
+# Install Node dependencies & build assets
+RUN npm install && npm run build
 
 # Laravel storage/cache permissions
 # Permissions for storage, cache, and database
