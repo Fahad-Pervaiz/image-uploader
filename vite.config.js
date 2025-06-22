@@ -3,14 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    base: '/build/', // ✅ Correct relative path for Vite output
-    build: {
-        outDir: 'public/build',
-        manifest: true,
-        rollupOptions: {
-            input: 'resources/js/app.js',
-        },
-    },
+    base: 'https://laravel-image-gallery.onrender.com/', // ✅ Force HTTPS for assets
     plugins: [
         laravel({
             input: 'resources/js/app.js',
