@@ -36,7 +36,7 @@ import ImageGallery from '../Components/ImageGallery.vue';
                 muted
                 playsinline
                 >
-                <source src="/videos/Animation - 1750446412953.webm" type="video/webm" />
+                <source src="/videos/Animation-1750446412953.webm" type="video/webm" />
                 Your browser does not support the video tag.
                 </video>
 
