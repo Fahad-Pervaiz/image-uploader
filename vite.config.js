@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    base: 'https://laravel-image-gallery.onrender.com/', // ✅ Force HTTPS for assets
+    base: 'https://laravel-image-gallery.onrender.com/build/', // ✅ Force HTTPS for assets
     plugins: [
         laravel({
             input: 'resources/js/app.js',
