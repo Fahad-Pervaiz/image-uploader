@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "filepond": "^4.32.8",
+        "filepond-plugin-image-preview": "^4.6.12",
         "sweetalert2": "^11.22.0",
         "vue-filepond": "^7.0.4",
         "vue-toastification": "^2.0.0-rc.5"
