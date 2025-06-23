@@ -25,9 +25,6 @@
 
     <!-- Gallery -->
     <div>
-      <!-- <h2 class="text-2xl font-semibold text-center text-gray-700 dark:text-gray-200 mb-6">
-        🖼 Image Gallery
-      </h2> -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <div
           v-for="(image, index) in images"
@@ -108,46 +105,6 @@ import { useToast } from 'vue-toastification';
 const toast = useToast();
 let serverMessage = {};
 
-// setOptions({
-//   server: {
-//     process: {
-//       url: '/upload',
-//       method: 'POST',
-//       headers: {
-//         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-//       },
-//       onError: (response) => {
-//         serverMessage = JSON.parse(response);
-//       },
-//     },
-//   },
-//   labelFileProcessingError: () => serverMessage.error,
-// });
-
-//   try {
-//     const response = await axios.get('/csrf-token');
-//     const newToken = response.data.token;
-
-//     // Update FilePond server headers with new token
-//     setOptions({
-//       server: {
-//         process: {
-//           url: '/upload',
-//           method: 'POST',
-//           headers: {
-//             'X-CSRF-TOKEN': newToken,
-//           },
-//           onError: (response) => {
-//             serverMessage = JSON.parse(response);
-//           },
-//         },
-//       },
-//     });
-
-//     console.log('✅ FilePond CSRF token refreshed');
-//   } catch (e) {
-//     console.error('❌ Failed to refresh CSRF token for FilePond', e);
-//   }
 (async () => {
   try {
     const response = await axios.get('/csrf-token');
@@ -169,9 +126,9 @@ let serverMessage = {};
       },
     });
 
-    console.log('✅ FilePond CSRF token refreshed');
+    // console.log('✅ FilePond CSRF token refreshed');
   } catch (e) {
-    console.error('❌ Failed to refresh CSRF token for FilePond', e);
+    // console.error('❌ Failed to refresh CSRF token for FilePond', e);
   }
 })();
 
