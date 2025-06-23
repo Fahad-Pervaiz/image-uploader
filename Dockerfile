@@ -43,4 +43,6 @@ EXPOSE 80
 RUN mkdir -p database && touch database/database.sqlite && chmod -R 775 database
 
 # Laravel entrypoint
-ENTRYPOINT ["sh", "-c", "php artisan config:cache && php artisan migrate --force && apache2-foreground"]
+# ENTRYPOINT ["sh", "-c", "php artisan config:cache && php artisan migrate --force && apache2-foreground"]
+ENTRYPOINT ["sh", "-c", "php artisan storage:link && php artisan config:cache && php artisan migrate --force && apache2-foreground"]
+
