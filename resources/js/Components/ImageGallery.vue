@@ -13,15 +13,12 @@
           @processfile="handleProcessedFile"
           accepted-file-types="image/*"
           allow-multiple
-          max-file-size="5MB"
-          chunk-uploads
-          chunk-size="1MB"
-          chunk-force
+          max-file-size="2MB"
           class="mb-2"
         />
       </div>
       <p class="text-sm text-center text-gray-500 dark:text-gray-400 mt-2">
-        Max file size: <span class="font-medium">5MB</span> | Formats:
+        Max file size: <span class="font-medium">2MB</span> | Formats:
         <span class="font-medium">JPG, PNG, GIF</span>
       </p>
     </div>

@@ -63,7 +63,7 @@ class ImageController extends Controller
                 'file',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:5120',
+                'max:2048',
                 function ($attribute, $value, $fail) {
                     // Sanitize filename check
                     $originalName = $value->getClientOriginalName();
