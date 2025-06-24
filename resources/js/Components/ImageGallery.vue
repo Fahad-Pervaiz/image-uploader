@@ -14,6 +14,9 @@
           accepted-file-types="image/*"
           allow-multiple
           max-file-size="5MB"
+          chunk-uploads
+          chunk-size="1MB"
+          chunk-force
           class="mb-2"
         />
       </div>
@@ -124,11 +127,6 @@ let serverMessage = {};
           },
         },
       },
-        // Add these options:
-        maxFileSize: '5MB',
-        filePosterMaxFileSize: '5MB',
-        chunkUploads: true, // Enable chunked uploads for large files
-        chunkSize: '1MB', // Split into 1MB chunks
     });
 
     // console.log('✅ FilePond CSRF token refreshed');
