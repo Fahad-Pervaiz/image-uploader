@@ -23,7 +23,7 @@ class ImageController extends Controller
         }
 
         $request->validate([
-            'image' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:5MB',
+            'image' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         // Store the image
