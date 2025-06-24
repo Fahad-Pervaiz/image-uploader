@@ -13,12 +13,12 @@
           @processfile="handleProcessedFile"
           accepted-file-types="image/*"
           allow-multiple
-          max-file-size="1MB"
+          max-file-size="5MB"
           class="mb-2"
         />
       </div>
       <p class="text-sm text-center text-gray-500 dark:text-gray-400 mt-2">
-        Max file size: <span class="font-medium">1MB</span> | Formats:
+        Max file size: <span class="font-medium">5MB</span> | Formats:
         <span class="font-medium">JPG, PNG, GIF</span>
       </p>
     </div>
