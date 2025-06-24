@@ -166,10 +166,42 @@ methods: {
     console.log('FilePond initialized');
   },
 
-  handleProcessedFile(error, file) {
-    if (error) return console.error(error);
-    this.images.unshift(file.serverId);
-    toast.success('Image uploaded successfully!');
+//   handleProcessedFile(error, file) {
+//     if (error) return console.error(error);
+//     this.images.unshift(file.serverId);
+//     toast.success('Image uploaded successfully!');
+//   },
+  async handleProcessedFile(error, file) {
+    if (error) {
+      let message = 'Upload failed';
+
+      // Parse FilePond error response
+      try {
+        const errorData = JSON.parse(error.body);
+        message = errorData.message || errorData.error || message;
+      } catch (e) {
+        message = error.body || message;
+      }
+
+      toast.error(message);
+      return;
+    }
+
+    try {
+      // Verify the response contains the image path
+      if (!file.serverId) {
+        throw new Error('Server did not return file path');
+      }
+
+      // Refresh gallery after upload
+      const response = await axios.get('/images');
+      this.images = response.data;
+
+      toast.success('Image uploaded successfully!');
+    } catch (e) {
+      console.error('Upload processing error:', e);
+      toast.error('Failed to process uploaded image');
+    }
   },
 
   async confirmDelete(imagePath, index) {

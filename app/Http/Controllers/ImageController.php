@@ -19,7 +19,7 @@ class ImageController extends Controller
     public function store(Request $request) {
         // Validate the incoming file
         if (!$request->hasFile('image')) {
-            return response()->json(['error' => 'There is no imgage file'], 400);
+            return response()->json(['error' => 'There is no image file'], 400);
         }
 
         $request->validate([
