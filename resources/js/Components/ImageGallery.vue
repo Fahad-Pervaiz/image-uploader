@@ -109,6 +109,7 @@ let serverMessage = {};
   try {
     const response = await axios.get('/csrf-token');
     const newToken = response.data.token;
+    console.log("token=",newToken);
 
     // Update FilePond server headers with new token
     setOptions({
