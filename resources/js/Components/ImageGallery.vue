@@ -110,10 +110,6 @@ let serverMessage = {};
     const response = await axios.get('/csrf-token');
     const newToken = response.data.token;
 
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
-
-
     // Update FilePond server headers with new token
     setOptions({
       server: {
@@ -121,7 +117,7 @@ let serverMessage = {};
           url: '/upload',
           method: 'POST',
           headers: {
-            'X-CSRF-TOKEN': csrfToken,
+            'X-CSRF-TOKEN': newToken,
           },
           onError: (response) => {
             serverMessage = JSON.parse(response);
