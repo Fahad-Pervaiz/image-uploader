@@ -105,16 +105,13 @@ import { useToast } from 'vue-toastification';
 const toast = useToast();
 let serverMessage = {};
 
-// (async () => {
+(async () => {
   try {
-    // const response = await axios.get('/csrf-token');
-    // const newToken = response.data.token;
+    const response = await axios.get('/csrf-token');
+    const newToken = response.data.token;
 
-const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-
-    console.log("token=",newToken, ", latestCsrfToken=",latestCsrfToken);
+    console.log("token=",newToken);
 
     // Update FilePond server headers with new token
     setOptions({
@@ -123,7 +120,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
           url: '/upload',
           method: 'POST',
           headers: {
-            'X-CSRF-TOKEN': token,
+            'X-CSRF-TOKEN': newToken,
           },
           onError: (response) => {
             serverMessage = JSON.parse(response);
@@ -136,7 +133,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
   } catch (e) {
     // console.error('❌ Failed to refresh CSRF token for FilePond', e);
   }
-// })();
+})();
 
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
