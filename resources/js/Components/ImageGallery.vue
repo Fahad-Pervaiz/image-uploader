@@ -105,7 +105,7 @@ import { useToast } from 'vue-toastification';
 const toast = useToast();
 let serverMessage = {};
 
-(async () => {
+// (async () => {
   try {
     // const response = await axios.get('/csrf-token');
     // const newToken = response.data.token;
@@ -136,7 +136,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
   } catch (e) {
     // console.error('❌ Failed to refresh CSRF token for FilePond', e);
   }
-})();
+// })();
 
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
