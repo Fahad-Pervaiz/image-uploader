@@ -107,24 +107,38 @@ let serverMessage = {};
 
 (async () => {
   try {
-    const response = await axios.get('/csrf-token');
-    const newToken = response.data.token;
+    // const response = await axios.get('/csrf-token');
+    // const newToken = response.data.token;
 
-    // Update FilePond server headers with new token
-    setOptions({
-      server: {
-        process: {
-          url: '/upload',
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': newToken,
-          },
-          onError: (response) => {
-            serverMessage = JSON.parse(response);
-          },
+    // // Update FilePond server headers with new token
+    // setOptions({
+    //   server: {
+    //     process: {
+    //       url: '/upload',
+    //       method: 'POST',
+    //       headers: {
+    //         'X-CSRF-TOKEN': newToken,
+    //       },
+    //       onError: (response) => {
+    //         serverMessage = JSON.parse(response);
+    //       },
+    //     },
+    //   },
+    // });
+    axios.get('/csrf-token').then(({ data }) => {
+  setOptions({
+    server: {
+      process: {
+        url: '/upload',
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': data.token,
         },
       },
-    });
+    },
+  });
+});
+
 
     // console.log('✅ FilePond CSRF token refreshed');
   } catch (e) {
