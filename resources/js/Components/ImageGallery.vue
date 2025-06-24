@@ -111,7 +111,7 @@ let serverMessage = {};
     const newToken = response.data.token;
 
 
-    console.log("token=",newToken, ", dd=",document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),);
+    // console.log("token=",newToken);
 
     // Update FilePond server headers with new token
     setOptions({
@@ -120,7 +120,7 @@ let serverMessage = {};
           url: '/upload',
           method: 'POST',
           headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+            'X-CSRF-TOKEN': newToken,
           },
           onError: (response) => {
             serverMessage = JSON.parse(response);
