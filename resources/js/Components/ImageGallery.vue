@@ -120,7 +120,12 @@ let serverMessage = {};
             'X-CSRF-TOKEN': newToken,
           },
           onError: (response) => {
-            serverMessage = JSON.parse(response);
+            try {
+          const errorData = JSON.parse(response);
+          console.error('Server error response:', errorData);
+        } catch (e) {
+          console.error('Raw error response:', response);
+        }
           },
         },
       },
@@ -174,7 +179,12 @@ methods: {
   async handleProcessedFile(error, file) {
     if (error) {
       let message = 'Upload failed';
-
+    console.error('Failed file:', file.filename);
+    console.error('File details:', {
+      name: file.filename,
+      size: file.fileSize,
+      type: file.fileType
+    });
       // Parse FilePond error response
       try {
         const errorData = JSON.parse(error.body);
