@@ -106,7 +106,7 @@ class ImageController extends Controller
         $image = Image::create([
             'user_id' => Auth::id(),
             'name' => $safeFilename, // Store sanitized name
-            'original_name' => $originalName, // Keep original for reference
+            // 'original_name' => $originalName, // Keep original for reference
             'extension' => $extension,
             'size' => $uploadedFile->getSize(),
             'path' => $path,
