@@ -107,12 +107,12 @@ let serverMessage = {};
 
 (async () => {
   try {
-    const response = await axios.get('/csrf-token');
-    const newToken = response.data.token;
+    // const response = await axios.get('/csrf-token');
+    // const newToken = response.data.token;
 
-    const latestCsrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-axios.defaults.headers.common['X-CSRF-TOKEN'] = latestCsrfToken;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
 
     console.log("token=",newToken, ", latestCsrfToken=",latestCsrfToken);
 
@@ -123,7 +123,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = latestCsrfToken;
           url: '/upload',
           method: 'POST',
           headers: {
-            'X-CSRF-TOKEN': latestCsrfToken,
+            'X-CSRF-TOKEN': token,
           },
           onError: (response) => {
             serverMessage = JSON.parse(response);
