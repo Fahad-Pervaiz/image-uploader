@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->string('name')->comment('Name of the image');
             $table->string('extension')->comment('File extension of the image');
+            $table->string('original_name')->comment('Name of the image');
             $table->string('size')->comment('Size of the image file');
             $table->string('path')->comment('Path to the image file');
             // $table->string('url')->comment('URL to access the image');
