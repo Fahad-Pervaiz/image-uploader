@@ -31,11 +31,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/csrf-token', function () {
-    // return response()->json(['token' => csrf_token()]);
-
-        $token = csrf_token();
-    return response()->json(['token' => $token])
-        ->withCookie(cookie('XSRF-TOKEN', $token, 60));
+    return response()->json(['token' => csrf_token()]);
 });
 
 
